@@ -1,0 +1,72 @@
+openapi: 3.0.1
+info:
+  title: Products API
+  version: 0.1.0
+  description: API for product management
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT.html
+  contact:
+    name: Murilo silva de souza 
+    url: https://github.com/murilosilva17
+    email: spmurilosp15@gmail.com
+servers:
+  - url: http://localhost:3001
+paths:
+  /api/products:
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - description
+                - price
+                - quantity
+              properties:
+                description:
+                  type: string
+                price:
+                  type: number
+                quantity:
+                  type: number
+      responses:
+        '201':
+          description: Product registered
+        '400':
+          description: Invalid inputs
+  /api/products/{id}:
+    get:
+      summary: Get a product by ID
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product found
+        '404':
+          description: Product not found
+  /api/products/description/{description}:
+    get:
+      summary: Get products by description
+      tags:
+        - Products
+      parameters:
+        - name: description
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Products found
